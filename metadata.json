@@ -1,0 +1,8 @@
+{
+  "name": "Chat GPT AI - Rocket League Bot Studio",
+  "description": "Interactive reinforcement learning research platform, live 3D physics pitch visualizer, PPO training manager, and mechanics benchmark suite for Rocket League bots.",
+  "prompt": "Rocket League RL bot research studio and live physics viewer",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

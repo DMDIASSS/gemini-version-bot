@@ -1,11 +1,26 @@
-<div align="center">
+# TAS Data Inspector v1 — read-only
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Examines binary `.data` recordings from Blaku's TAS Plugin, without loading or executing any DLL.
 
-  <h1>Built with AI Studio</h2>
+## Running (PowerShell)
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+```powershell
+python tas_data_inspector.py "C:\path\to\shot.data" --csv-dir extracted --report report.json
+```
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+You may pass multiple `.data` files. The script uses Python's standard library.
 
-</div>
+## Verified structure in the three provided examples
+
+- First 4 bytes: little-endian format/version integer `1`.
+- Next 4 bytes: frame count.
+- Exactly `frame_count × 32` bytes follow: each record can be represented as a raw 32-bit field and seven raw IEEE-754 floats.
+- Exactly 128 trailing bytes remain, consistent with a saved state block.
+
+**Not yet verified:** semantics of flag bits and analog fields, interpretation of the 128-byte trailer, true capture tick rate, and reproducibility in RocketSim. Frame lengths at 120 Hz are estimates.
+
+Do **not** use raw field names as Rocket League controller labels for training until validated. Realistic demonstration replay, physics compatibility, checkpoint safety, and behavioral cloning design are separate engineering tasks.
+
+## Safety
+
+The inspector never modifies `.data` files and does not load DLLs. The source/shot author and permission to reuse examples are separate concerns. Avoid using plugin injection outside allowed offline/freeplay conditions.
